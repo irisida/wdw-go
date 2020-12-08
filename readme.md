@@ -13,4 +13,4 @@ This repo is following along with the `Apress` web development with Go book by S
 
 ## Gorilla Mux. Servers Part Two
 
-- [07 - Gorilla mux](/07-gorillaMux) - 
+- [07 - Gorilla mux](/07-gorillaMux) - The samples above in part 1 have used the built in `http.ServeMux` and will work well for many if not most common scenarios. The `mux` package from gorilla (Gorilla web toolkit) is a fairly powerful request router. It is useful for RESTful services and implements the `http.Handler` interface so is compatible with the http package interfaces. With the mux package requests can be matched by the: `URL host`, `path`, `path prefix`, `schemes`, `header` and `query values`. It has custom matchers and routes as subrouters.   
