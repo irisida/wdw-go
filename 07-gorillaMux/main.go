@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -60,6 +61,46 @@ func GetNoteHandler(w http.ResponseWriter, req *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(j)
+}
+
+// HTTP Put - /api/notes/{id}
+func PutNoteHandler(w http.ResponseWriter, req *http.Request) {
+	var err error
+	vars := mux.Vars(req)
+	k := vars["id"]
+	var noteToUpd Note
+
+	// decode the incoming json
+	err = json.NewDecoder(req.Body).Decode(&noteToUpd)
+	if err != nil {
+		panic(err)
+	}
+
+	if note, ok := noteStore[k]; ok {
+		noteToUpd.CreatedOn = note.CreatedOn
+
+		// delete existing note and add updated item at the same index
+		delete(noteStore, k)
+		noteStore[k] = noteToUpd
+	} else {
+		log.Printf("Could not find key of note %s tp delete", k)
+	}
+	w.WriteHeader(http.StatusNoContent)
+
+}
+
+// HTTP Delete - /api/notes/{id}
+func DeleteNoteHandler(w http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+	k := vars["id"]
+
+	// remove from store
+	if _, ok := noteStore[k]; ok {
+		delete(noteStore, k)
+	} else {
+		log.Printf("Could not find the key of note %s to delete", k)
+	}
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func main() {
