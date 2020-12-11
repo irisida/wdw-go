@@ -19,3 +19,4 @@ This repo is following along with the `Apress` web development with Go book by S
 
 - [03-01 - Basic templates](/03-templates/03-01-templates) - Here we see a single template being created that takes in two items, so the data is interpolated at compile time. 
 - [03-02 - Templates with a slice of data](/03-templates/03-02-slice-of-data) - Here we define a template as a strong constant using the block definitions to interpolate our data `{{.AttributeName}}` to complete the render, where we're using a slice for our date we can put the template attributes in a `{{range .}} {{end}}` block to iterate over all the items (rows) in the slice. 
+- [03-03 - Named templates](/03-templates/03-03-named-templates) - Templates can be defined with a `{{define}}` and `{{end}}` block. As always we can work with collections of data where the `.` represents the collection. These are useful with nested templates. 
